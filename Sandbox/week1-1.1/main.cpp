@@ -10,6 +10,7 @@ int main()
   char myChar = 'x';
   bool flag = false;
 
+  // cout is printf cin is scanf
   cout << "Welcome to IPC144 review" << endl; // endl = "\n"
   cout << "First Session of OPP244" << endl;
 
