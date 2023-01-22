@@ -82,7 +82,6 @@ namespace sdds
 
   bool checkOption(const struct GPA* studentGpa, const char option, double gpaValue)
   {
-    int i = 0;
     bool found = false;
     
     if(option == '<')
