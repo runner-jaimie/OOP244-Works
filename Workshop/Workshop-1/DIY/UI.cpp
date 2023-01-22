@@ -66,7 +66,7 @@ namespace sdds
         }
         else if (option != '>' && option != '<' && option != '~' && option != '!') 
         {
-          cout << "Syntax error: ? [Op][value]" << endl;
+          cout << "Syntax error: ? [Op][value]<ENTER>" << endl;
           cout << "Op: [>,<,~,!]" << endl;
           cout << "value: GPA value" << endl;
           cout << endl;
