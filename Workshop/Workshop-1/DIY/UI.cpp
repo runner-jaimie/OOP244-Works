@@ -48,7 +48,6 @@ namespace sdds
     char option;
     double gpa;
     bool done = false;
-    bool exitProgram = false;
     
     cout << "Enter GPA query..." << endl;
 
