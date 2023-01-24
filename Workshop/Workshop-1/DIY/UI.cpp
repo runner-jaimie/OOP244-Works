@@ -32,9 +32,15 @@ namespace sdds
   // returns true if user enter y or Y // input function 
   bool yes()
   {
-    char ch = cin.get();
+    char ch;
+    bool returnValue = true;
+    cin >> ch;
     flushkeys();
-    return ch == 'y' || ch == 'Y';
+    if (ch == 'y' || ch == 'Y')
+    {
+      returnValue = false;
+    }
+    return returnValue;
   } 
 
   void displayUi()
@@ -42,6 +48,7 @@ namespace sdds
     char option;
     double gpa;
     bool done = false;
+    bool exitProgram = false;
     
     cout << "Enter GPA query..." << endl;
 
@@ -54,10 +61,10 @@ namespace sdds
       {
         cout << "Exit the program? (Y)es/(N)o: ";
         done = !yes();
-      }else
+      }
+      else
       {
         cin >> gpa;
-        
         flushkeys();
           
         if(option == '>' || option == '<' || option == '~') 

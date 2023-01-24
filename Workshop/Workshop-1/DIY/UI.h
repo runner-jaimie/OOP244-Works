@@ -14,18 +14,6 @@
 
 #ifndef SDDS_UI_H
 #define SDDS_UI_H
-/*
-  while (!done)
-  {
-    cout << "Enter the movie genre to start the search: ";
-    cin >> genre;
-    flushkeys();
-    displayMoviesWithGenre(genre);
-    cout << "Do another search? (Y)es: ";
-    done = !yes();
-    cout << endl;
-  } 
- */
 
 namespace sdds 
 {
