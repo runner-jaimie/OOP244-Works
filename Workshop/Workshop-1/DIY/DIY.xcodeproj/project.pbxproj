@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A7561BCE2982CEF000A647F9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7561BCD2982CEF000A647F9 /* main.cpp */; };
+		A7561BD62982D00200A647F9 /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7561BD42982D00200A647F9 /* UI.cpp */; };
+		A7561BDD2982D02100A647F9 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7561BD72982D02100A647F9 /* File.cpp */; };
+		A7561BDE2982D02100A647F9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7561BDA2982D02100A647F9 /* main.cpp */; };
+		A7561BDF2982D02100A647F9 /* GPAlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7561BDC2982D02100A647F9 /* GPAlist.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +27,16 @@
 
 /* Begin PBXFileReference section */
 		A7561BCA2982CEF000A647F9 /* DIY */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DIY; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7561BCD2982CEF000A647F9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A7561BD42982D00200A647F9 /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
+		A7561BD52982D00200A647F9 /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
+		A7561BD72982D02100A647F9 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
+		A7561BD82982D02100A647F9 /* GPA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPA.h; sourceTree = "<group>"; };
+		A7561BD92982D02100A647F9 /* GPAlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPAlist.h; sourceTree = "<group>"; };
+		A7561BDA2982D02100A647F9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A7561BDB2982D02100A647F9 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
+		A7561BDC2982D02100A647F9 /* GPAlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GPAlist.cpp; sourceTree = "<group>"; };
+		A7561BE12982D12A00A647F9 /* DIY */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DIY; sourceTree = "<group>"; };
+		A7561BE22982D17900A647F9 /* students.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = students.csv; path = DIY/students.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +53,9 @@
 		A7561BC12982CEF000A647F9 = {
 			isa = PBXGroup;
 			children = (
+				A7561BE22982D17900A647F9 /* students.csv */,
 				A7561BCC2982CEF000A647F9 /* DIY */,
+				A7561BE12982D12A00A647F9 /* DIY */,
 				A7561BCB2982CEF000A647F9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,7 +71,14 @@
 		A7561BCC2982CEF000A647F9 /* DIY */ = {
 			isa = PBXGroup;
 			children = (
-				A7561BCD2982CEF000A647F9 /* main.cpp */,
+				A7561BD72982D02100A647F9 /* File.cpp */,
+				A7561BD42982D00200A647F9 /* UI.cpp */,
+				A7561BDC2982D02100A647F9 /* GPAlist.cpp */,
+				A7561BDA2982D02100A647F9 /* main.cpp */,
+				A7561BDB2982D02100A647F9 /* File.h */,
+				A7561BD52982D00200A647F9 /* UI.h */,
+				A7561BD92982D02100A647F9 /* GPAlist.h */,
+				A7561BD82982D02100A647F9 /* GPA.h */,
 			);
 			path = DIY;
 			sourceTree = "<group>";
@@ -119,7 +140,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7561BCE2982CEF000A647F9 /* main.cpp in Sources */,
+				A7561BDF2982D02100A647F9 /* GPAlist.cpp in Sources */,
+				A7561BD62982D00200A647F9 /* UI.cpp in Sources */,
+				A7561BDD2982D02100A647F9 /* File.cpp in Sources */,
+				A7561BDE2982D02100A647F9 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
