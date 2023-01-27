@@ -114,7 +114,7 @@ namespace sdds {
 
 
     // ADD [2]: implement the deallocateMemory function
-    void dellocagteMemory() {
+    void deallocateMemory() {
         int i;
         for( i = 0; i < no_of_traces; i++) {
             delete [] users[i].Package_Name;

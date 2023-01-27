@@ -29,7 +29,7 @@ namespace sdds {
     // ADD [2]: Declare a prototype for the deallocateMemory function that do the following:
     // (1). deallocates all the Package names in the customer (users) elements
     // (2). deallocates the users array
-    void dellocagteMemory();
+    void deallocateMemory();
 
 
 }

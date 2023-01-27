@@ -38,7 +38,7 @@ int main() {
     display();
     cout << "\nData was successfully printed" << endl;
     
-    dellocagteMemory();
+    deallocateMemory();
     cout << "Dynamically allocated memory was successfully deallocated"<<endl;
     return 0;
 }
