@@ -31,17 +31,17 @@ namespace sdds {
     bool read(Customers& rec) {
         
         bool check = false;
-        cout << "Enter User name: ";
+        cout << " Enter User name: ";
         read(rec.user_name, 21); // function for getting user name and count user's name length
         if( rec.user_name[0] !='\0') { // checking user name is not empty and if it is true get the other user's information.
             
-            cout << "Enter likes_count: ";
+            cout << " Enter likes_count: ";
             cin >> rec.likes_count;
-            cout << "Enter retweets_count: ";
+            cout << " Enter retweets_count: ";
             cin >> rec.retweets_count;
-            cout << "Enter replies_count: ";
+            cout << " Enter replies_count: ";
             cin >> rec.retweets_count;
-            cout << "Enter share videos (y/n): ";
+            cout << " Enter share videos (y/n): ";
             cin >> rec.share_videos;
             
             check = true;
