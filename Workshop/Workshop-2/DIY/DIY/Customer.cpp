@@ -40,7 +40,7 @@ namespace sdds {
             cout << " Enter retweets_count: ";
             cin >> rec.retweets_count;
             cout << " Enter replies_count: ";
-            cin >> rec.retweets_count;
+            cin >> rec.replies_count;
             cout << " Enter share videos (y/n): ";
             cin >> rec.share_videos;
             
