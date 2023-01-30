@@ -9,7 +9,7 @@ using namespace std;
 namespace sdds {
 
     int no_of_traces;
-    Customers* users;
+    Customers* users; // 선언한 이유는 동적 메모리 할당을 위해서 그리고 전역 번수로 선언한 것은 모든 함수가 접근이 가능하게 하기 위해서 
 
     // Add: Complete the implementation of the no argument [int loadTraces()] function
     int loadTraces() {       // Do: complete the missing parts as guided (6 parts)
@@ -63,7 +63,7 @@ namespace sdds {
         bool check = false;
         char read_Package_name[50];
         
-        if (read(user_info.dayofweek)&& read(user_info.user_id) && read(user_info.timeinhours) && read(user_info.dayofyear) && read(user_info.Fwifitime)
+         if (read(user_info.dayofweek)&& read(user_info.user_id) && read(user_info.timeinhours) && read(user_info.dayofyear) && read(user_info.Fwifitime)
             && read(user_info.Fctime) && read(read_Package_name)) { // if reading of data
             
             // Add [1]: allocate memory to the size of the Package_name + 1, keep its address in the name of the customers reference (user_info.Package_Name)

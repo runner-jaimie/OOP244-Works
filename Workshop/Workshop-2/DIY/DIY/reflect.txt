@@ -1,0 +1,7 @@
+Through the recent workshop, I had the opportunity to work with dynamic memory allocation for the first time. This concept was new to me and I was excited to learn how it works and how to implement it in my coding projects. However, I quickly realized that there were some challenges to be overcome, especially when it came to resizing dynamic memory.
+
+At first, the idea of resizing dynamic memory seemed daunting. I was not sure how to allocate the right amount of memory and then adjust it as new data values were received. This led to frustration as I encountered errors and unexpected behaviour in my code. But then I stumbled upon a lecture by OOP 244 Fardad Professor on YouTube, which explained the concept of dynamic memory allocation in detail and provided tips on how to resize it effectively.
+
+Through this lecture, I was able to understand the importance of dynamic memory allocation and why it is necessary to resize it when receiving new data values. Also during the workshop made it easier for me to understand how to allocate and resize dynamic memory. This was a key learning moment for me, as I now understand the importance of having a solid understanding of dynamic memory allocation and how to implement it in real-world projects.
+
+In conclusion, this workshop was a valuable learning experience for me, as it allowed me to use dynamic memory allocation for the first time and understand its challenges and benefits. 
