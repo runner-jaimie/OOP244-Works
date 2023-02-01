@@ -10,12 +10,11 @@ namespace sdds {
 // Function 1 ()
     void Department::updateName(const char* newname) {
         if(newname != nullptr && newname[0] !='\0'){
+            delete [] m_deptName ;
             m_deptName = nullptr;
             m_deptName = new char[strlen(newname) + 1];
             // ✔️ string copy할때는 무조건 strcpy 함수 써야한다. 그냥 allocate 못한다.
             strcpy(m_deptName, newname);
-        }else {
-            clearDepartment();
         }
     }
 
@@ -102,10 +101,10 @@ namespace sdds {
 
 // Function 11
     void Department::clearDepartment() {
-        if(m_deptName != nullptr){
-            delete[] m_deptName;
-            m_deptName = nullptr;
-        }
+        delete [] m_deptProj;
+        m_deptProj = nullptr;
+        delete[] m_deptName;
+        m_deptName = nullptr;
     }
 
     
