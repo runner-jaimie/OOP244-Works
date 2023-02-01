@@ -11,7 +11,7 @@ namespace sdds {
     void Department::updateName(const char* newname) {
         if(newname != nullptr && newname[0] !='\0'){
             m_deptName = nullptr;
-            m_deptName = new char[m_numOfCurProj];
+            m_deptName = new char[strlen(newname) + 1];
             // ✔️ string copy할때는 무조건 strcpy 함수 써야한다. 그냥 allocate 못한다.
             strcpy(m_deptName, newname);
         }else {
