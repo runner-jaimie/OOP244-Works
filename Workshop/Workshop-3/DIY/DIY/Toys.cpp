@@ -71,11 +71,12 @@ namespace sdds {
             {
                 cout.width(10);
                 cout << "On Sale";
-                cout << ' ';
+                cout << " ";
             }
             else
             {
                 cout.width(8); cout.fill(' ');
+                cout << " ";
             }
         }
         else
