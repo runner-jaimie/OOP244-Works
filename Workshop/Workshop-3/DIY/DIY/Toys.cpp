@@ -19,6 +19,10 @@ namespace sdds {
             m_age = age;
             isSale(false);
         }
+        else
+        {
+            emptyToys();
+        }
     }
     
     int Toys::validSku(int sku)

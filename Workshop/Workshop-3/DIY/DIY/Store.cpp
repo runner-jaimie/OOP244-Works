@@ -16,7 +16,7 @@ namespace sdds
             m_noOfToys = no;
             m_addToys = 0;
             
-        }
+        } 
         else
         {
             setEmpty();
