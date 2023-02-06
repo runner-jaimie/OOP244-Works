@@ -67,6 +67,7 @@ namespace sdds {
             {
                 cout.width(10);
                 cout << "On Sale";
+                cout << ' ';
             }
             else
             {
