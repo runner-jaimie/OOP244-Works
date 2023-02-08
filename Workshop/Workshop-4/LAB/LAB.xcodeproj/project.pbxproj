@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7A615422992ED42008DD5B1 /* Soccer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A615412992ED42008DD5B1 /* Soccer.cpp */; };
+		A7A6154529942AD2008DD5B1 /* Tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A6154429942AD2008DD5B1 /* Tournament.cpp */; };
 		A7D1C04B29912FCB00C98245 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7D1C04A29912FCB00C98245 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A7A615402992ED2D008DD5B1 /* Soccer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Soccer.h; sourceTree = "<group>"; };
+		A7A615412992ED42008DD5B1 /* Soccer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Soccer.cpp; sourceTree = "<group>"; };
+		A7A615432993DB8C008DD5B1 /* Tournament.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tournament.h; sourceTree = "<group>"; };
+		A7A6154429942AD2008DD5B1 /* Tournament.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tournament.cpp; sourceTree = "<group>"; };
 		A7D1C04029912EC900C98245 /* LAB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LAB; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7D1C04A29912FCB00C98245 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				A7D1C04A29912FCB00C98245 /* main.cpp */,
+				A7A615432993DB8C008DD5B1 /* Tournament.h */,
+				A7A6154429942AD2008DD5B1 /* Tournament.cpp */,
+				A7A615402992ED2D008DD5B1 /* Soccer.h */,
+				A7A615412992ED42008DD5B1 /* Soccer.cpp */,
 			);
 			path = LAB;
 			sourceTree = "<group>";
@@ -120,6 +130,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7D1C04B29912FCB00C98245 /* main.cpp in Sources */,
+				A7A615422992ED42008DD5B1 /* Soccer.cpp in Sources */,
+				A7A6154529942AD2008DD5B1 /* Tournament.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

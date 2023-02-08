@@ -63,7 +63,8 @@ int main() {
 	}
 	
 	SoccerTeam st2[] = {
-		SoccerTeam("Scarborough Soccer Team",0.0,0),
+
+        SoccerTeam("Scarborough Soccer Team",0.0,0),
 		SoccerTeam("North York Soccer Team",100.0,1)
 	};
 
