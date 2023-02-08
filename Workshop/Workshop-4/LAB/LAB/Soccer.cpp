@@ -17,6 +17,7 @@ namespace sdds
     {
         if(tname != nullptr && tname[0] !='\0' && fines >= 0 && foul >= 0)
         {
+            m_golas = 0;
             setName(tname);
             setFine(fines, foul);
         }
