@@ -101,6 +101,9 @@ namespace sdds
             {
                 cout <<  "w";
             }
+            else{
+                cout << " ";
+            }
             cout << endl;
         }
         else
