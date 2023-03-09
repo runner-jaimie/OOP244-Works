@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
-#include <string.h>
+#include <cstring>
 #include "Numbers.h"
 
 
@@ -51,45 +51,48 @@ namespace sdds
     
     bool Numbers::load()
     {
-        bool flag = false;
-        int i = 0;
+        //bool flag = false;
+        unsigned int i = 0, numOfLines = 0;
+        double inputDouble = 0.0;
         delete [] m_collection;
-        int numOfLines;
         numOfLines = countLines(m_fileName);
         
         if(numOfLines > 0)
         {
-            m_collection = nullptr;
+            //m_collection = nullptr;
             m_collection = new double[numOfLines];
             
             ifstream fileIn(m_fileName); // create an instance of ifstream
             while(fileIn && i < numOfLines) // 파일이 유효할때 까지 계속 돌아서 m_collection에 넣어주는 기능
             {
-                fileIn >> m_collection[i];
+                fileIn >> inputDouble;
+                m_collection[i] = inputDouble;
                 i++;
             }
             if(numOfLines != i) // do not match
             {
+                delete [] m_collection;
                 setEmpty();
             }
             else
             {
-                m_collectionSize = i;
+                m_collectionSize = numOfLines;
                 m_originalFlag = true;
-                flag = true;
+                //flag = true;
             }
         }
-        return flag;
+        return m_collectionSize > 0;
     }
     
     void Numbers::save()
     {
+        unsigned int i;
         if(m_originalFlag && m_addedFlag)
         {
             ofstream fileOut(m_fileName);
             fileOut << fixed;
             fileOut.precision(2);
-            for(int i = 0; i < m_collectionSize; i++)
+            for(i = 0; i < m_collectionSize; i++)
             {
                 fileOut << m_collection[i] << endl;
             }
@@ -100,7 +103,7 @@ namespace sdds
     
     double Numbers::max() const
     {
-        int i;
+        unsigned int i;
         double max = m_collection[0];
         for(i = 1; i < m_collectionSize; i++)
         {
@@ -114,7 +117,7 @@ namespace sdds
     
     double Numbers::min() const
     {
-        int i;
+        unsigned int i;
         double min = m_collection[0];
         for(i = 1; i < m_collectionSize; i++) // for문 1부터 돌아도 된다 min, max 구할때
         {
@@ -128,7 +131,7 @@ namespace sdds
     
     double Numbers::average() const
     {
-        int i;
+        unsigned int i;
         double sum = 0.0;
         for(i = 0; i < m_collectionSize; i++)
         {
@@ -145,10 +148,15 @@ namespace sdds
     
     Numbers::Numbers(const char* fileName) // char fileName 하면 char 한글자만 받는 것이다. 그래서 char*로 받아야 어레이로 받는다.
     {
-        if(fileName)
+        if(fileName[0] !='\0' && fileName != nullptr)//if(fileName)
         {
+            setEmpty();
             strcpy(m_fileName, fileName);
             load();
+        }
+        else
+        {
+            setEmpty();
         }
     }
     
@@ -165,21 +173,23 @@ namespace sdds
     Numbers& Numbers::operator=(const Numbers& N)
     {
         if(this !=&N) //Prevnet self copy
-        {
+        {   unsigned int i;
             save();
             delete[] m_collection;
+            m_collection = nullptr;
             setEmpty();
-            //m_collection = nullptr;
+            
             if(N.m_collection)
             {
                 m_originalFlag = false;
-                m_collectionSize = N.m_collectionSize; // update collectionSize
-                strcpy(m_fileName, N.m_fileName);
                 m_collection = new double[N.m_collectionSize];
-                for(int i=0; i < N.m_collectionSize; i++)
+                strcpy(m_fileName, N.m_fileName);
+                
+                for(i = 0; i < N.m_collectionSize; i++)
                 {
                     m_collection[i] = N.m_collection[i]; // copy all the double value
                 }
+                m_collectionSize = N.m_collectionSize; // update collectionSize
             }
             
         }
@@ -213,10 +223,11 @@ namespace sdds
     //Binary operator
     Numbers& Numbers::operator+=(const double value)
     {
+        unsigned int i;
+        double* newData = nullptr;
         if(*this)
         {
-            int i;
-            double* newData = nullptr;
+            
             newData = new double [m_collectionSize + 1]; // 사이즈 선언
             for(i = 0; i < m_collectionSize; i++)
             {
@@ -244,7 +255,7 @@ namespace sdds
                 ostr << "Copy of ";
             }
             ostr << m_fileName << endl;
-            int i;
+            unsigned int i;
             for(i = 0; i < m_collectionSize; i++)
             {
                 ostr << m_collection[i];
@@ -257,14 +268,15 @@ namespace sdds
             ostr << endl;
             ostr.fill('-');
             ostr.width(76);
-            ostr << ' ';
-            ostr << "\nTotal of " << m_collectionSize <<" number(s),"
+            ostr << '-';
+            ostr << endl;
+            ostr << "Total of " << m_collectionSize <<" number(s),"
                  << " Largest: " << max() << ","
                  << " Smallest: " << min() << ","
                  << " Average: " << average() << endl;
             ostr.fill('=');
             ostr.width(76);
-            ostr << ' ';
+            ostr << '=';
         }
         else
         {
@@ -277,7 +289,8 @@ namespace sdds
     //Helper function binary operator overload
     ostream& operator<<(ostream& ostr, const Numbers& Ro)
     {
-        return Ro.display(ostr);
+        Ro.display(ostr);
+        return (ostr);
     }
     
     istream& operator>>(istream& istr, Numbers& Ro)

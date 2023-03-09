@@ -9,7 +9,7 @@ namespace sdds
         //Member data
         double* m_collection{};
         char m_fileName[255 + 1]{};
-        int m_collectionSize{};
+        unsigned int m_collectionSize{};
         bool m_originalFlag=false; // 로드할때만 true
         bool m_addedFlag=false; // 숫자가 더해지면 true
         
