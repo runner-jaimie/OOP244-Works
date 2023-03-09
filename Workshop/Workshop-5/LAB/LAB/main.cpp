@@ -29,7 +29,7 @@ int main() {
    return 0;
 }
 void BinaryOperators() {
-   EggCarton e1, e2(6, 4), e3(6, 5), bad(40);
+   EggCarton e1, e2(6, 4), e3(6, 5), bad(40); //class instance?? 
    cout << endl << "Binary Member operator tests" << endl;
    cout << "e1: " << int(e1) << ", e2: " << int(e2) << ", e3: " << int(e3) << endl;
    e1 = e2 += e3;
