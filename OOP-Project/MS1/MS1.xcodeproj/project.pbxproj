@@ -64,9 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				A735A2E729B6A8F6006AB8DC /* main.cpp */,
+				A735A2E629B6A8F6006AB8DC /* Utils.cpp */,
 				A735A2E929B6A8F6006AB8DC /* PosApp.cpp */,
 				A735A2E529B6A8F6006AB8DC /* PosApp.h */,
-				A735A2E629B6A8F6006AB8DC /* Utils.cpp */,
 				A735A2E829B6A8F6006AB8DC /* Utils.h */,
 			);
 			path = MS1;

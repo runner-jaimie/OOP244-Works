@@ -8,6 +8,7 @@
 // for submission.
 //
 /////////////////////////////////////////////////////////////////
+#include <iostream>
 #include "PosApp.h"
 int main() {
    sdds::PosApp pos("datafile.csv");
