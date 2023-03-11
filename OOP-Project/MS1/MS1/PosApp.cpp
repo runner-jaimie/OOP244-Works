@@ -139,5 +139,4 @@ namespace sdds
         while(menu());
     }
     
-};
-
+}
