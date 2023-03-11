@@ -34,7 +34,7 @@ namespace sdds
     
     int PosApp::menu()
     {
-        int sel = U.getInt(0, 5,"> ");
+        int sel = 0;
         cout << "The Sene-Store" << endl
              << "1- List items" << endl
              << "2- Add item" << endl
@@ -42,7 +42,7 @@ namespace sdds
              << "4- Stock item" << endl
              << "5- Point of Sale" << endl
              << "0- exit program" << endl;
-
+        sel = U.getInt(0, 5,"> ");
                 switch (sel)
                     {
                     case 1:
