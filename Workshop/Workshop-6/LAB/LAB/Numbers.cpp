@@ -165,7 +165,7 @@ namespace sdds
     Numbers::Numbers(const Numbers& N)
     {
         //First set to safe empty state.
-        setEmpty();
+        //setEmpty();
         operator=(N);
     }
     
