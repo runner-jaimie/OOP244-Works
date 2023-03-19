@@ -76,7 +76,7 @@ namespace sdds
         return *this;
     }
     
-    Error& Error::operator=(char* value)
+    Error& Error::operator=(const char* value)
     {
         if(value != nullptr)
         {
