@@ -10,7 +10,7 @@
 		A75C6B7729BE93E800CD8CCC /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C6B6C29BE93E800CD8CCC /* Error.cpp */; };
 		A75C6B7B29BE93E800CD8CCC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C6B7129BE93E800CD8CCC /* Utils.cpp */; };
 		A75C6B7C29BE93E800CD8CCC /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C6B7229BE93E800CD8CCC /* Date.cpp */; };
-		A7DE4EB929C76C6300FD7DD3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7DE4EB829C76C6300FD7DD3 /* main.cpp */; };
+		A7DE4EBB29C7A9B200FD7DD3 /* 05-DateValidation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7DE4EBA29C7A9B200FD7DD3 /* 05-DateValidation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,7 +35,7 @@
 		A75C6B7229BE93E800CD8CCC /* Date.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Date.cpp; sourceTree = "<group>"; };
 		A75C6B7429BE93E800CD8CCC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		A773DBF029C673C300B60620 /* dateEntries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dateEntries.txt; sourceTree = "<group>"; };
-		A7DE4EB829C76C6300FD7DD3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A7DE4EBA29C7A9B200FD7DD3 /* 05-DateValidation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "05-DateValidation.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +75,8 @@
 				A75C6B6C29BE93E800CD8CCC /* Error.cpp */,
 				A75C6B7029BE93E800CD8CCC /* Date.h */,
 				A75C6B7229BE93E800CD8CCC /* Date.cpp */,
-				A7DE4EB829C76C6300FD7DD3 /* main.cpp */,
 				A773DBF029C673C300B60620 /* dateEntries.txt */,
+				A7DE4EBA29C7A9B200FD7DD3 /* 05-DateValidation.cpp */,
 			);
 			path = MS2;
 			sourceTree = "<group>";
@@ -139,8 +139,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A75C6B7729BE93E800CD8CCC /* Error.cpp in Sources */,
+				A7DE4EBB29C7A9B200FD7DD3 /* 05-DateValidation.cpp in Sources */,
 				A75C6B7B29BE93E800CD8CCC /* Utils.cpp in Sources */,
-				A7DE4EB929C76C6300FD7DD3 /* main.cpp in Sources */,
 				A75C6B7C29BE93E800CD8CCC /* Date.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

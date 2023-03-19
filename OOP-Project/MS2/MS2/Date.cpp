@@ -207,6 +207,7 @@ namespace sdds
             if(!istr)
             {
                 m_error = "Cannot read day entry";
+                ok = false;
             }
         }
        if(!m_dateOnly)
@@ -218,6 +219,7 @@ namespace sdds
                if(!istr)
                {
                    m_error = "Cannot read hour entry";
+                   ok = false;
                }
            }
            if(ok)
