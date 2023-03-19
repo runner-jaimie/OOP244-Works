@@ -8,40 +8,48 @@ using namespace std;
 namespace sdds {
     
 // Function 1 ()
-    void Department::updateName(const char* newname) {
-        if(newname != nullptr && newname[0] !='\0'){
-            delete [] m_deptName ;
+    void Department::updateName(const char* newname)
+    {
+        if(newname != nullptr && newname[0] !='\0')
+        {
+            delete [] m_deptName ; //Dynamic memory allocate 🍎 왜 지우고 메모리를 allocate 해주지??
             m_deptName = nullptr;
-            m_deptName = new char[strlen(newname) + 1];
-            // ✔️ string copy할때는 무조건 strcpy 함수 써야한다. 그냥 allocate 못한다.
-            strcpy(m_deptName, newname);
+            m_deptName = new char[strlen(newname) + 1]; // Char라서 + 1
+            strcpy(m_deptName, newname); // ✔️ string copy할때는 무조건 strcpy 함수 써야한다. 그냥 allocate 못한다.
         }
     }
 
 // Function 2
-    void Department::updateBudget(double change) {
-        if(change > 0.0) {
+    void Department::updateBudget(double change)
+    {
+        if(change > 0.0)
+        {
             m_budgOfDept+= change;
         }
     }
 
 // Function 3
-    bool Department::addProject(Project& newproject) {
+    bool Department::addProject(Project& newproject)
+    {
         bool check = false;
         int i;
-        if(m_numOfCurProj == 0 && m_budgOfDept >= newproject.m_cost) {
-            m_numOfCurProj++;
+        if(m_numOfCurProj == 0 && m_budgOfDept >= newproject.m_cost)
+        {
+            m_numOfCurProj++; // 🍎 이미 하나의 프로젝트가 있어서?? ++ 하고 시작하는 건가??
             m_deptProj = nullptr;
             m_deptProj = new Project[m_numOfCurProj];
             // 마지막 인덱스에 새로운 프로젝트 넣어야 해서
             m_deptProj[m_numOfCurProj-1] = newproject;
-        }else {
-            if(remainingBudget() >= newproject.m_cost){
+        }else
+        {
+            if(remainingBudget() >= newproject.m_cost)
+            {
                 m_numOfCurProj++;
-                Project* new_m_deptProj;
+                Project* new_m_deptProj; // 🍎
                 new_m_deptProj = nullptr;
-                new_m_deptProj = new Project[m_numOfCurProj]; // array가 작은 사이즈 만큼 돌아야 한다.
-                for(i = 0; i < m_numOfCurProj -1; i++) {
+                new_m_deptProj = new Project[m_numOfCurProj]; // array가 작은 사이즈 만큼 돌아야 한다. 원래+1 더해 줘야 하는데 m_numOfCurProj를 하나 증가 하고 시작해서 + 1 안해준다. 
+                for(i = 0; i < m_numOfCurProj -1; i++)
+                {
                     new_m_deptProj[i] = m_deptProj[i];
                 }
                 // 마지막 인덱스에 새로운 값을 넣어준다.

@@ -4,13 +4,15 @@ namespace sdds {
 
     const int MAX_TOPIC_LENGTH = 25;
 
-    struct Project {
+    struct Project
+    {
         char m_topic[MAX_TOPIC_LENGTH+1];
         double m_cost;
     };
 
 	//class Department does here
-    class Department {
+    class Department
+    {
         
         char* m_deptName;
         Project* m_deptProj;
