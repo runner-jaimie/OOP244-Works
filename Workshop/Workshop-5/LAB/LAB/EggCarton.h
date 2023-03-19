@@ -42,7 +42,6 @@ namespace sdds
         EggCarton& operator+=(int value);
         EggCarton& operator+=(EggCarton& right);
         bool operator==(const EggCarton& right) const;
-         
     };
 
 //Helper binary operator overload
