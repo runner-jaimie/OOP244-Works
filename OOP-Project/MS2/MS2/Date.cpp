@@ -52,7 +52,7 @@ namespace sdds
         if(ok && (m_minute < 0 || m_minute > 59))
         {
             ok = false;
-            m_error = "Invalid Minute";
+            m_error = "Invlid Minute";
         }
     }
     
