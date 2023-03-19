@@ -33,7 +33,7 @@ namespace sdds
         ~Error();
         
         //Mandatory Operation
-        Error& operator=(char* value); //Assignment to a C-string(error messege)
+        Error& operator=(const char* value); //Assignment to a C-string(error messege)
         operator bool()const; //Boolean type conversion
         Error& clear();
         
