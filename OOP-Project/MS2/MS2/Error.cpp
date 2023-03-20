@@ -42,15 +42,14 @@ namespace sdds
     
     Error::Error(const Error& source) //Copy constructor
     {
-        operator=(source);
-        
+        operator=(source);        
     }
     
     Error& Error::operator=(const Error& source) //Copy assignment
     {
         if(this != &source) //Prevent self copy -> Error class 자신과 source가 같으면 
         {
-            delete[] m_errorMsg;
+            //delete[] m_errorMsg;
             clear();
             
             if(source.m_errorMsg)
@@ -72,6 +71,10 @@ namespace sdds
     
     Error& Error::clear()
     {
+        if (*this)
+        {
+            delete[] m_errorMsg;
+        }
         m_errorMsg = nullptr;
         return *this;
     }

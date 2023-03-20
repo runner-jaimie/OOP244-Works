@@ -22,7 +22,7 @@ namespace sdds
 {
     class Error
     {
-        char* m_errorMsg{};
+        char* m_errorMsg = nullptr;
         
     public:
         //Constructor

@@ -173,7 +173,7 @@ namespace sdds
     //Read
     istream& Date::read(istream& istr)
     {
-        bool ok = true;
+       bool ok = true;
        if(!m_error)
        {
            m_error.clear();
