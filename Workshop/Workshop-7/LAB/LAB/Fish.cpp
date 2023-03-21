@@ -25,7 +25,7 @@ using namespace std;
 
 namespace sdds
 {
-    Fish::Fish(const char* name, int age):Pet(name, age, FISH_COST_BASE)
+    Fish::Fish(const char* name, int age):Pet(name, age, 1)
     {
         //Pet(base class)이 가지고 있는 constructor를 통해서 Fish(derived class)가 필요한 기능을 해줄 수 있다. Pet.cpp 38을 보면 strncpy(for name), totalCahrges, age 생성한다.
     }

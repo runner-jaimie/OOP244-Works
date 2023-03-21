@@ -24,7 +24,7 @@ using namespace std;
 
 namespace sdds
 {
-    Dog::Dog(const char* name, int age):Pet(name, age, DOG_COST_BASE)
+    Dog::Dog(const char* name, int age):Pet(name, age, 4)
     {
         m_numWalks = 0;
     }
