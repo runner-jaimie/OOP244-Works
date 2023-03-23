@@ -34,14 +34,14 @@ int main() {
     for(i = 0; i < 2; cout << *M[i++] << endl);
     cout << "------------------------------------" << endl;
     cout << "Enter the following:\n>120,Oculus Quest 2\n>";
-    cin >> *M[0];
+    cin  >> *M[0];
     cout << "The following outputs should be the same" << endl;
     cout << "The correct output:" << endl;
     cout << "VRVideo requires Oculus Quest 2\nVideo Length = 120" << endl;
     cout << "Your output:" << endl;
     cout << *M[0] << endl;
     cout << "Enter the following:\n>500,3\n>";
-    cin >> *M[1];
+    cin  >> *M[1];
     cout << "The following outputs should be the same" << endl;
     cout << "The correct output:" << endl;
     cout << "Animation is in 3-D\nVideo length = 500" << endl;

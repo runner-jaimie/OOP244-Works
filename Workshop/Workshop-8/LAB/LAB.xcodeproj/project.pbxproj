@@ -70,12 +70,12 @@
 			isa = PBXGroup;
 			children = (
 				A797EC6729CA589D00447DDE /* main.cpp */,
-				A797EC6829CA589D00447DDE /* Animation.h */,
-				A797EC6429CA589D00447DDE /* Animation.cpp */,
 				A797EC6629CA589D00447DDE /* Media.h */,
 				A797EC6229CA589D00447DDE /* Media.cpp */,
 				A797EC6129CA589D00447DDE /* Video.h */,
 				A797EC6929CA589D00447DDE /* Video.cpp */,
+				A797EC6829CA589D00447DDE /* Animation.h */,
+				A797EC6429CA589D00447DDE /* Animation.cpp */,
 				A797EC6329CA589D00447DDE /* VRVideo.h */,
 				A797EC6529CA589D00447DDE /* VRVideo.cpp */,
 			);
