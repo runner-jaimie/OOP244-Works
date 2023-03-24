@@ -10,8 +10,8 @@
       "request": "launch",
       "program": "${workspaceFolder}/a.out",
       "args": [],
-      "cwd": "${workspaceFolder}"
-      //"console": "externalTerminal"
+      "cwd": "${workspaceFolder}",
+      "console": "externalTerminal"
     }
   ]
 }
