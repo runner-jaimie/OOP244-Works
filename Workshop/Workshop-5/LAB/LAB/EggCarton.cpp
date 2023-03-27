@@ -82,7 +82,8 @@ namespace  sdds
       int cartonWidth = size == 6 ? 3 : 6;
       for(int i = 0; i < size; i++)
       {
-         ostr << ((i % cartonWidth) ? '|' : '[') << ((i < noOfEggs) ? (jumbo ? 'O' : 'o') : ' ');
+         ostr << ((i % cartonWidth) ? '|' : '[') 
+              << ((i < noOfEggs) ? (jumbo ? 'O' : 'o') : ' ');
          ((i + 1) % cartonWidth == 0) && ostr << ']' << endl;
       }
       return ostr;
