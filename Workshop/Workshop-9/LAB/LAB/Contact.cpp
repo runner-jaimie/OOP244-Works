@@ -79,7 +79,7 @@ namespace sdds
     if (*this) {
         Person::write(ostr) << endl;
         ostr << m_address << endl << m_city
-        << m_province << endl
+        <<" " <<m_province << endl
         << m_postalCode[0] <<m_postalCode[1]<<m_postalCode[2]<<" "
         <<m_postalCode[3]<<m_postalCode[4]<<m_postalCode[5]<<endl;
     }
