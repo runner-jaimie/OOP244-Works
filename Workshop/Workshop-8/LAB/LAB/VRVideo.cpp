@@ -23,7 +23,7 @@ using namespace std;
 
 namespace sdds
 {
-    VRVideo::VRVideo() :Video() //Base class의 constructor를 기본으로 사용한다 라는 것
+    VRVideo::VRVideo() :Video() //Base class의 constructor를 기본으로 사용한다 라는 것 constructor에만 쓸수 있다 함수 노노
     {
         m_equipment = nullptr;
         
