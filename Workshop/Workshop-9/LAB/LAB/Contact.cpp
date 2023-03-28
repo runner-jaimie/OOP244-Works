@@ -66,6 +66,7 @@ namespace sdds
   istream& Contact::read(istream& istr) 
   {
     ~*this;
+    Person::operator~();
     Person::read(istr);
     m_address= dynRead(istr, ',');
     m_city = dynRead(istr, ',');
