@@ -78,7 +78,7 @@ namespace sdds
   {
     if (*this) {
         Person::write(ostr) << endl;
-        ostr << m_address << " ," << m_city << ","
+        ostr << m_address << "," << m_city << ","
              << m_province << ","<< m_postalCode << endl;
         ostr << endl;
     }
