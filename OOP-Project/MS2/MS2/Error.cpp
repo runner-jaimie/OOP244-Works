@@ -47,7 +47,7 @@ namespace sdds
     
     Error& Error::operator=(const Error& source) //Copy assignment
     {
-        if(this != &source) //Prevent self copy -> Error class 자신과 source가 같으면 
+        if(this != &source) //Prevent self copy -> Error class 자신과 source가 같으면  this가 target of 가 아니라서 주소이다 그래서 주소와 주소를 비교해서 같으면 자기 자신을 복사하는것 아니면 다른것을 복사하는 것이 된다.
         {
             //delete[] m_errorMsg;
             clear();
