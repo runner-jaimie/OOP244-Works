@@ -50,6 +50,7 @@ namespace sdds
         operator bool() const;
     
     //Member function
+        void valid();
         void setEmpty();
         char itemType();
         Item& displayType(int displayType);
@@ -64,6 +65,6 @@ namespace sdds
         std::ifstream& load(std::ifstream&  ifst);
         std::ostream& bprint(std::ostream& ostr = std::cout) const;
     };
-    double operator+=(double left, const Item& right);
+    double operator+=(double& left, const Item& right);
 }
 #endif

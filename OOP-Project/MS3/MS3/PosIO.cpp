@@ -16,6 +16,7 @@ that my professor provided to complete my project milestones.
  */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <fstream>
 #include "PosIO.h"
 
 using namespace std;
@@ -39,7 +40,7 @@ namespace sdds
     {
         return right.save(ofst);
     }
-    ifstream& operator<<(ifstream& ifst, PosIO& right)
+    ifstream& operator>>(ifstream& ifst, PosIO& right)
     {
         return right.load(ifst);
     }

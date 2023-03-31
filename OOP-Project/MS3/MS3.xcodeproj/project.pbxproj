@@ -27,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A712E96129D6223500BE2762 /* tools.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tools.csv; sourceTree = "<group>"; };
+		A712E96229D6224100BE2762 /* bad_tools.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bad_tools.csv; sourceTree = "<group>"; };
 		A7AB28D229CE4AC80058A71F /* MS3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MS3; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7AB28DC29CE4B4F0058A71F /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
 		A7AB28DD29CE4B4F0058A71F /* Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
@@ -80,6 +82,8 @@
 				A7AB28E029CE4B4F0058A71F /* Error.cpp */,
 				A7AB28E229CE4B4F0058A71F /* PosIO.cpp */,
 				A7AB28DC29CE4B4F0058A71F /* Item.cpp */,
+				A712E96229D6224100BE2762 /* bad_tools.csv */,
+				A712E96129D6223500BE2762 /* tools.csv */,
 			);
 			path = MS3;
 			sourceTree = "<group>";
