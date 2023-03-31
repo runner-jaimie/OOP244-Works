@@ -173,16 +173,16 @@ namespace sdds
     //Read
     istream& Date::read(istream& istr)
     {
-       bool ok = true;
-       if(!m_error)
-       {
-           m_error.clear();
-           m_year = 0;
-           m_month = 0;
-           m_day = 0;
-           m_hour = 0;
-           m_minute = 0;
-       }
+        bool ok = true;
+        if(!m_error)
+        {
+            m_error.clear();
+            m_year = 0;
+            m_month = 0;
+            m_day = 0;
+            m_hour = 0;
+            m_minute = 0;
+        }
         
         istr >> m_year;
         if(!istr)
@@ -210,28 +210,28 @@ namespace sdds
                 ok = false;
             }
         }
-       if(!m_dateOnly)
-       {
-           if(ok)
-           {
-               istr.ignore(); istr.clear();
-               istr >> m_hour;
-               if(!istr)
-               {
-                   m_error = "Cannot read hour entry";
-                   ok = false;
-               }
-           }
-           if(ok)
-           {
-               istr.ignore();
-               istr >> m_minute;
-               if(!istr)
-               {
-                   m_error = "Cannot read minute entry";
-               }
-           }
-       }
+        if(!m_dateOnly)
+        {
+            if(ok)
+            {
+                istr.ignore(); istr.clear();
+                istr >> m_hour;
+                if(!istr)
+                {
+                    m_error = "Cannot read hour entry";
+                    ok = false;
+                }
+            }
+            if(ok)
+            {
+                istr.ignore();
+                istr >> m_minute;
+                if(!istr)
+                {
+                    m_error = "Cannot read minute entry";
+                }
+            }
+        }
         if(ok)
         {
             valid();
