@@ -27,7 +27,6 @@ namespace sdds
     Item::Item()
     {
         setEmpty();
-        valid();
     }
     
     Item::Item(const Item& source)
@@ -69,7 +68,7 @@ namespace sdds
 //    strcmp(str1, BlockFMask”); // D < F 이므로 음수 반환
 //    strcmp(str1, BlockAMask”); // D > A 이므로 양수 반환
 
-    bool Item::operator>(const Item& right)
+    bool Item::operator>(const Item& right) const
     {
         return strcmp(m_name, right.m_name) > 0; // 알파벳 순서를 비교 a가 아스키 코드에서 가장 작은 수 그래서 앞에 value가 뒤에 value 보다 작으면 양수 값 리턴
     }
@@ -107,32 +106,32 @@ namespace sdds
     }
 
     //Member function
-    void Item::valid()
+    void Item::valid(char* sku, char* name, double price, bool taxed, int quantity)
     {
         bool ok = true;
         
-        if(strlen(m_sku) > MAX_SKU_LEN || strlen(m_sku) == 0 )
+        if(strlen(sku) >= MAX_SKU_LEN || strlen(sku) == 0 )
         {
             ok = false;
             m_error = ERROR_POS_SKU;
         }
         
-        if(m_name && (strlen(m_name) > MAX_NAME_LEN || strlen(m_name) == 0)) //m_name 이 있는지 먼저 체크 해야 m_name의 length를 체크할 수 있다.
+        if(ok && (strlen(name) > MAX_NAME_LEN || strlen(name) == 0)) //m_name 이 있는지 먼저 체크 해야 m_name의 length를 체크할 수 있다.
         {
             ok = false;
             m_error = ERROR_POS_NAME;
         }
-        if(m_price < 0)
+        if(ok && price < 0)
         {
             ok = false;
             m_error = ERROR_POS_PRICE;
         }
-        if(m_taxed == 0) // boolean을 validation 할때 1 = ture 0 = false
+        if(ok && taxed != 0 && taxed != 1) // boolean을 validation 할때 1 = ture 0 = false
         {
             ok = false;
             m_error = ERROR_POS_TAX;
         }
-        if(m_quantity > MAX_STOCK_NUMBER )
+        if(ok && (quantity > MAX_STOCK_NUMBER || quantity < 1) )
         {
             ok = false;
             m_error = ERROR_POS_QTY;
@@ -183,11 +182,13 @@ namespace sdds
     //Write funciton
     ostream& Item::write(ostream& ostr) const
     {
-        size_t numOfstr = strlen(m_name);
-        char name[41]={0};
         
-        if(m_diaplay == POS_LIST)
+        if(!m_error && m_name && m_diaplay == POS_LIST)
         {
+            int numOfstr =0;
+            char name[41]={0};
+            numOfstr = strlen(m_name);
+            
             ostr.width(MAX_SKU_LEN); ostr.fill(' '); ostr.setf(ios::left);
             ostr << m_sku; ostr.unsetf(ios::left); ostr << "|";
             if(numOfstr > 20)
@@ -225,7 +226,7 @@ namespace sdds
             }
         }
         
-        else if(m_diaplay == POS_FORM)
+        else if(m_name && m_diaplay == POS_FORM)
         {
             ostr.width(13); ostr.fill('='); ostr << "v" << endl;
             ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
@@ -247,7 +248,7 @@ namespace sdds
             ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
             ostr << "Stock Qty:" << m_quantity; ostr.unsetf(ios::left); ostr << endl;
         }
-        else
+        else if (m_error)
         {
             ostr << m_error;
         }
@@ -268,7 +269,7 @@ namespace sdds
             setEmpty();
         }
         
-        // Sku
+        // Read Sku
         cout << "Sku" <<endl;
         do // validation한 값이 들어 올때까지
         {
@@ -295,7 +296,7 @@ namespace sdds
         }
         while(!ok);
         
-        //Name
+        //Read Name
         cout << "Name" << endl;
         do
         {
@@ -328,7 +329,7 @@ namespace sdds
         }
         while(!ok);
         
-        //Price
+        //Read Price
         cout << "Price" << endl;
         do
         {
@@ -348,21 +349,21 @@ namespace sdds
         }
         while(!ok);
         
-        //Tax
+        //Read Tax
         cout << "Taxed?" << endl;
         cout << "(Y)es/(N)o: ";
         do
         {
             ch = '\0';
             ok = true;
-            istr.ignore(100, '\n');
+            istr.ignore(1000, '\n');
             istr >> ch;
             if(!istr || (ch!= 'Y' && ch !='y' && ch !='N' && ch != 'n') )
             {
                 if(!istr)
                 {
                     istr.clear();
-                    istr.ignore(100, '\n');
+                    istr.ignore(1000, '\n');
                 }
                 else
                 {
@@ -374,22 +375,21 @@ namespace sdds
         }
         while(!ok);
         
-        //Quantity
+        //Read Quantity
         cout << "Quantity" << endl;
        do
        {
            ok = true;
            cout << "> ";
-           istr.ignore(100, '\n');
+           istr.ignore(1000, '\n');
            istr >> m_quantity;
-           if(!istr || m_quantity > MAX_STOCK_NUMBER || m_quantity == 0)
+           if(!istr || m_quantity > MAX_STOCK_NUMBER || m_quantity <= 0)
            {
                if(!istr)
                {
                    istr.clear();
+                   istr.ignore(1000, '\n');
                }
-               istr.ignore(1000, '\n');
-               
                ok = false;
                cout << ERROR_POS_QTY << endl;
            }
@@ -417,119 +417,93 @@ namespace sdds
         double tempPrice = 0;
         bool tempTaxed = false;
         int tempQuantity = 0;
-        m_error.clear(); // error status clear 해준다
+        bool ok = true;
+        clear(); // error status clear 해준다
        
-        // Sku
+        //Load Sku
         tempSku[0] = '\0'; // array 초기화
         ifst.getline(tempSku, MAX_SKU_LEN + 1, ',');
         if(!ifst) //  파일을 리딩할때 ifstream 값이 오류 인지 확인하기
         {
-            // 오류니깐 즉 if문 조건안에 false 라서 값을 clear 하고 ignore 해준다.
-            if(!ifst)
-            {
-                ifst.clear(); // 보통 clear() ignore() 앞에 붙는다. 그리고 오류값 들어오면 clear
-                ifst.ignore(1000, ','); // ignore 줄때 getline 이랑 같은 delemination 줘야한다. 그래서 여기는 , 로
-            }
-            
+            ifst.clear(); // 보통 clear() ignore() 앞에 붙는다. 그리고 오류값 들어오면 clear
+            ifst.ignore(1000, ','); // ignore 줄때 getline 이랑 같은 delemination 줘야한다. 그래서 여기는 , 로
             m_error = ERROR_POS_SKU;
-        }
-        else
-        {
-            if(strlen(tempSku) < MAX_SKU_LEN && strlen(tempSku) != 0)
-            {
-                strcpy(m_sku, tempSku);
-            }
+            ok = false;
         }
         
-        // Name
-        tempName[0] = '\0';
-        ifst.getline(tempName, MAX_NAME_LEN + 1, ',');
-        if(!ifst)
+        //Load Name
+        if(ok)
         {
+            tempName[0] = '\0';
+            ifst.getline(tempName, MAX_NAME_LEN + 1, ',');
             if(!ifst)
             {
                 ifst.clear();
                 ifst.ignore(1000,',');
-            }
-            m_error = ERROR_POS_NAME;
-        }
-        else
-        {
-            if(strlen(tempName) < MAX_NAME_LEN && strlen(tempName) != 0)
-            {
-                if(m_name)
-                {
-                    delete [] m_name;
-                    m_name = nullptr;
-                }
-                m_name = new char[strlen(tempName) + 1];
-                strcpy(m_name, tempName);
+                m_error = ERROR_POS_NAME;
+                ok = false;
             }
         }
         
-        // Price
-        ifst >> tempPrice;
-        if(!ifst)
+        //Load Price
+        if(ok)
         {
+            ifst >> tempPrice;
             if(!ifst)
             {
                 ifst.clear();
                 ifst.ignore(100, ',');
-            }
-            m_error = ERROR_POS_PRICE;
-        }
-        else
-        {
-            if(tempPrice > 0)
-            {
-                m_price = tempPrice;
+                m_error = ERROR_POS_PRICE;
+                ok = false;
             }
         }
-        
-        // Tax
-        ifst.ignore(1, ',');
-        ifst >> tempTaxed;
-        if(!ifst)
+            
+        //Load Tax
+        if(ok)
         {
+            ifst.ignore(1, ',');
+            ifst >> tempTaxed;
             if(!ifst)
             {
                 ifst.clear();
                 ifst.ignore(100, ',');
+                m_error = ERROR_POS_TAX;
+                ok = false;
             }
-            m_error = ERROR_POS_TAX;
-        }
-        else
-        {
-            if(tempTaxed == 1)
-            {
-                m_taxed = true;
-            }
-            else
-            {
-                m_taxed = false;
-            }
+           
         }
         
-        // Quantity
-        ifst.ignore(1, ',');
-        ifst >> tempQuantity;
-        if(!ifst)
+        //Load Quantity
+        if(ok)
         {
+            ifst.ignore(1, ',');
+            ifst >> tempQuantity;
             if(!ifst)
             {
                 ifst.clear();
                 ifst.ignore(100, ',');
+                m_error = ERROR_POS_QTY;
+                ok = false;
             }
-            m_error = ERROR_POS_QTY;
         }
-        else
+        
+        valid(tempSku, tempName, tempPrice, tempTaxed, tempQuantity);
+        
+        if(*this)
         {
-            if(tempQuantity < MAX_STOCK_NUMBER+1)
+            strcpy(m_sku, tempSku);
+            if(m_name)
             {
-                m_quantity = tempQuantity;
+                delete[] m_name;
+                m_name = nullptr;
             }
+            m_name = new char[strlen(tempName) + 1];
+            strcpy(m_name, tempName);
+            m_price = tempPrice;
+            m_taxed = tempTaxed;
+            m_quantity = tempQuantity;
         }
-        //valid();
+        
       return ifst;
     }
     

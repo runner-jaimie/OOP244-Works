@@ -42,7 +42,7 @@ namespace sdds
         
     //Member operator overloads
         bool operator==(const char* sku) const;
-        bool operator>(const Item& right);
+        bool operator>(const Item& right) const;
         int operator+=(int value);
         int operator-=(int value);
         
@@ -50,7 +50,7 @@ namespace sdds
         operator bool() const;
     
     //Member function
-        void valid();
+        void valid(char* sku, char* name, double price, bool taxed, int quantity);
         void setEmpty();
         virtual char itemType() const = 0; // vitrual funciton 만들때 0 
         virtual Item& displayType(int displayType);
