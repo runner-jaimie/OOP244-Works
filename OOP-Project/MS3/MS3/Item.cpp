@@ -27,6 +27,7 @@ namespace sdds
     Item::Item()
     {
         setEmpty();
+        valid();
     }
     
     Item::Item(const Item& source)
@@ -34,19 +35,23 @@ namespace sdds
         operator=(source); // 정확히 하는 기능에 대해서 질문 ??
     }
     
-    Item& Item::operator=(const Item& source)
+    Item& Item::operator=(const Item& source) // 여기서 모든값을 = operator를 통해서 assign 해줘야 한다.
     {
-        if(this !=&source)
+        if(this !=&source) //Prevnet self copy 여기서 this에 무엇이 있나??
         {
             delete [] m_name;
             m_name = nullptr;
             setEmpty();
-            
             if(source.m_name)
             {
-                m_name = new char[strlen(m_name + 1)];
+                strcpy(m_sku, source.m_sku);
+                m_name = new char[strlen(source.m_name + 1)];
                 strcpy(m_name, source.m_name);
+                m_price = source.m_price;
+                m_taxed = source.m_taxed;
+                m_quantity = source.m_quantity;
             }
+            
         }
         return *this;
     }
@@ -54,7 +59,7 @@ namespace sdds
     //Member operator overloads
     bool Item::operator==(const char* sku) const
     {
-        return strcmp(m_sku, sku); // 값이 비교해서 같으면 true 리턴
+        return !strcmp(m_sku, sku); // 값이 비교해서 같으면 true 리턴
     }
     
 //    ▶ 간단예시(strcmp)
@@ -72,8 +77,8 @@ namespace sdds
     int Item::operator+=(int value)
     {
         int sum;
-        m_quantity+=value;
-        sum = m_quantity;
+        sum = m_quantity += value;
+        //sum = m_quantity;
         if(sum > MAX_STOCK_NUMBER)
         {
             m_quantity = MAX_STOCK_NUMBER;
@@ -85,8 +90,8 @@ namespace sdds
     int Item::operator-=(int value)
     {
         int sum;
-        m_quantity-=value;
-        sum = m_quantity;
+        sum = m_quantity -= value;
+        //sum = m_quantity;
         if( sum < value)
         {
             m_quantity = 0;
@@ -111,7 +116,8 @@ namespace sdds
             ok = false;
             m_error = ERROR_POS_SKU;
         }
-        if(strlen(m_name) > MAX_NAME_LEN || strlen(m_name) == 0)
+        
+        if(m_name && (strlen(m_name) > MAX_NAME_LEN || strlen(m_name) == 0)) //m_name 이 있는지 먼저 체크 해야 m_name의 length를 체크할 수 있다.
         {
             ok = false;
             m_error = ERROR_POS_NAME;
@@ -135,7 +141,7 @@ namespace sdds
     
     void Item::setEmpty()
     {
-        m_sku[0] = {0};
+        m_sku[0] = 0;
         m_name = nullptr;
         m_price = 0.0;
         m_taxed = false;
@@ -152,9 +158,9 @@ namespace sdds
     double Item::cost() const
     {
         double taxedPrice;
-        if(!m_taxed)
+        if(m_taxed)
         {
-            taxedPrice = m_price * TAX;
+            taxedPrice = m_price * (TAX + 1);
         }
         else
         {
@@ -174,36 +180,96 @@ namespace sdds
         return *this;
     }
     
+    //Write funciton
     ostream& Item::write(ostream& ostr) const
     {
-//        if(POS_LIST)
-//        {
-//
-//            if(nameOfStr > 20)
-//            {
-//                nameOfStr = 20;
-//            }
-//            // if()
-//            // {
-//            //   // name 이름 받아와서 dynamic allocate 해주고 글자수만큼 m_name에 copy해줘야 할껄????
-//            // }
-//
-//        }
+        size_t numOfstr = strlen(m_name);
+        char name[41]={0};
+        
+        if(m_diaplay == POS_LIST)
+        {
+            ostr.width(MAX_SKU_LEN); ostr.fill(' '); ostr.setf(ios::left);
+            ostr << m_sku; ostr.unsetf(ios::left); ostr << "|";
+            if(numOfstr > 20)
+            {
+                numOfstr = 20;
+            }
+            strncpy(name, m_name, numOfstr);
+            name[numOfstr] = 0;
+            
+            ostr.width(20); ostr.fill(' '); ostr.setf(ios::left);
+            ostr << name; ostr.unsetf(ios::left); ostr << "|";
+            ostr.width(7); ostr.fill(' '); ostr.setf(ios::right); ostr.setf(ios::fixed); ostr.precision(2);
+            ostr << m_price; ostr.unsetf(ios::right); ostr << "|";
+            
+            if(m_taxed == true)
+            {
+                ostr << " " << "X" << " " << "|";
+            }
+            else
+            {
+                ostr << " " << " " << " " << "|";
+            }
+            ostr.width(4);ostr.fill(' ');ostr.setf(ios::right);
+            ostr << m_quantity; ostr.unsetf(ios::right); ostr << "|";
+    
+            if(m_taxed == true)
+            {
+                ostr.width(9); ostr.fill(' '); ostr.setf(ios::right); ostr.precision(2);
+                ostr << cost()*m_quantity; ostr.unsetf(ios::right); ostr << "|";
+            }
+            else
+            {
+                ostr.width(9); ostr.fill(' '); ostr.setf(ios::right); ostr.precision(2);
+                ostr << cost()*m_quantity; ostr.unsetf(ios::right); ostr << "|";
+            }
+        }
+        
+        else if(m_diaplay == POS_FORM)
+        {
+            ostr.width(13); ostr.fill('='); ostr << "v" << endl;
+            ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
+            ostr << "Name:" << m_name; ostr.unsetf(ios::left); ostr << endl;
+            ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
+            ostr << "Sku:" << m_sku; ostr.unsetf(ios::left); ostr << endl;
+            ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
+            ostr << "Price:" << m_price; ostr.unsetf(ios::left); ostr << endl;
+            if(m_taxed)
+            {
+                ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
+                ostr << "Price + tax:" << cost(); ostr.unsetf(ios::left); ostr << endl;
+            }
+            else
+            {
+                ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
+                ostr << "Price + tax:" << "N/A"; ostr.unsetf(ios::left);ostr << endl;
+            }
+            ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
+            ostr << "Stock Qty:" << m_quantity; ostr.unsetf(ios::left); ostr << endl;
+        }
+        else
+        {
+            ostr << m_error;
+        }
         return ostr;
     }
-    istream& Item::read(istream& istr) //1
+    
+    //Read function
+    istream& Item::read(istream& istr)
     {
         bool ok = true;
+        char ch;
         char tempSku[100]={0};
         char tempName[100]={0};
         
         if(!m_error)
         {
-            m_error.clear();
+            clear();
             setEmpty();
         }
-        cout << "Sku" <<endl;
         
+        // Sku
+        cout << "Sku" <<endl;
         do // validation한 값이 들어 올때까지
         {
             tempSku[0] = '\0';
@@ -212,19 +278,24 @@ namespace sdds
             istr.getline(tempSku,100,'\n'); // char는 바로 istr로 받아오지 못한다. temp에 저장한후 strcpy에 값을 복사 해줘야 한다.
             if(!istr || strlen(tempSku) > MAX_SKU_LEN || strlen(tempSku) == 0 )// istr이 내가 입력한 데이타 타입을 확인해준다.
             {
-                istr.ignore(1000, '\n');
-                istr.clear();
+                if(!istr)
+                {
+                    istr.clear();
+                    istr.ignore(1000, '\n');
+                }
+                
                 ok = false;
                 cout << ERROR_POS_SKU << endl;
             }
             else
             {
-                strcpy(m_sku,tempSku);
+                strcpy(m_sku, tempSku);
                 ok = true;
             }
         }
         while(!ok);
         
+        //Name
         cout << "Name" << endl;
         do
         {
@@ -234,11 +305,14 @@ namespace sdds
             istr.getline(tempName,41,'\n') ;
             if(!istr || (strlen(tempName) > MAX_NAME_LEN || strlen(tempName) == 0))
             {
-                istr.ignore(1000, '\n');
-                istr.clear();
+                if(!istr)
+                {
+                    istr.clear();
+                    istr.ignore(1000, '\n');
+                }
+                
                 ok = false;
-                m_error = ERROR_POS_NAME;
-                cout << m_error << endl;
+                cout << ERROR_POS_NAME << endl;
             }
             else
             {
@@ -253,94 +327,239 @@ namespace sdds
             }
         }
         while(!ok);
+        
+        //Price
         cout << "Price" << endl;
         do
         {
-            //istr.ignore();
             ok = true;
             cout << "> ";
             istr >> m_price;
             if(!istr || m_price < 0)
             {
+                if(!istr)
+                {
+                    istr.clear();
+                }
                 istr.ignore(1000, '\n');
-                istr.clear();
                 ok = false;
                 cout << ERROR_POS_PRICE << endl;
             }
         }
         while(!ok);
         
+        //Tax
         cout << "Taxed?" << endl;
+        cout << "(Y)es/(N)o: ";
         do
         {
-            istr.ignore();
+            ch = '\0';
             ok = true;
-            cout << "> ";
-            istr >> m_taxed;
-            if(!istr || m_taxed == 0)
+            istr.ignore(100, '\n');
+            istr >> ch;
+            if(!istr || (ch!= 'Y' && ch !='y' && ch !='N' && ch != 'n') )
             {
-                istr.ignore(1000, '\n');
-                istr.clear();
-                ok = false;
-                m_error = ERROR_POS_TAX;
-                cout << m_error << endl;
+                if(!istr)
+                {
+                    istr.clear();
+                    istr.ignore(100, '\n');
+                }
+                else
+                {
+                    cout << "Only 'y' and 'n' are acceptable: ";
+                    ok = false;
+                }
             }
+            
         }
         while(!ok);
         
+        //Quantity
         cout << "Quantity" << endl;
        do
        {
-           istr.ignore();
            ok = true;
            cout << "> ";
+           istr.ignore(100, '\n');
            istr >> m_quantity;
-           if(!istr || m_quantity > MAX_STOCK_NUMBER)
+           if(!istr || m_quantity > MAX_STOCK_NUMBER || m_quantity == 0)
            {
-               istr.ignore();
-               istr.clear();
+               if(!istr)
+               {
+                   istr.clear();
+               }
+               istr.ignore(1000, '\n');
+               
                ok = false;
-               m_error = ERROR_POS_QTY;
-               cout << m_error << endl;
+               cout << ERROR_POS_QTY << endl;
            }
        }
         while(!ok);
       return istr;
     }
     
-    
-    
-    
+    //Save function
     ofstream& Item::save(ofstream& ofst) const
     {
+        ofst << itemType()<< "," << m_sku << "," << m_name << ",";
+        ofst.setf(ios::fixed); ofst.precision(2);
+        ofst << m_price << "," << m_taxed << "," << m_quantity;
+        
       return ofst;
     }
     
-    ifstream& Item::load(ifstream&  ifst) //2
+    //Load function
+    ifstream& Item::load(ifstream&  ifst)
     {
-        m_error.clear(); // error status clear 해준다
+        //ifst로 받아올 값 변수에 저장하기 위해서 tmep 변수 만들어줌
         char tempSku[100]={0};
         char tempName[100]={0};
-        
+        double tempPrice = 0;
+        bool tempTaxed = false;
+        int tempQuantity = 0;
+        m_error.clear(); // error status clear 해준다
+       
+        // Sku
         tempSku[0] = '\0'; // array 초기화
         ifst.getline(tempSku, MAX_SKU_LEN + 1, ',');
         if(!ifst) //  파일을 리딩할때 ifstream 값이 오류 인지 확인하기
         {
-            ifst.clear(); // 보통 클리어가 이글노얼 앞에 붇는다.
-            ifst.ignore(1000, ','); // ignore 줄때 getline 이랑 같은 delemination 줘야한다.
+            // 오류니깐 즉 if문 조건안에 false 라서 값을 clear 하고 ignore 해준다.
+            if(!ifst)
+            {
+                ifst.clear(); // 보통 clear() ignore() 앞에 붙는다. 그리고 오류값 들어오면 clear
+                ifst.ignore(1000, ','); // ignore 줄때 getline 이랑 같은 delemination 줘야한다. 그래서 여기는 , 로
+            }
+            
+            m_error = ERROR_POS_SKU;
         }
         else
         {
-            
+            if(strlen(tempSku) < MAX_SKU_LEN && strlen(tempSku) != 0)
+            {
+                strcpy(m_sku, tempSku);
+            }
         }
         
+        // Name
+        tempName[0] = '\0';
+        ifst.getline(tempName, MAX_NAME_LEN + 1, ',');
+        if(!ifst)
+        {
+            if(!ifst)
+            {
+                ifst.clear();
+                ifst.ignore(1000,',');
+            }
+            m_error = ERROR_POS_NAME;
+        }
+        else
+        {
+            if(strlen(tempName) < MAX_NAME_LEN && strlen(tempName) != 0)
+            {
+                if(m_name)
+                {
+                    delete [] m_name;
+                    m_name = nullptr;
+                }
+                m_name = new char[strlen(tempName) + 1];
+                strcpy(m_name, tempName);
+            }
+        }
         
+        // Price
+        ifst >> tempPrice;
+        if(!ifst)
+        {
+            if(!ifst)
+            {
+                ifst.clear();
+                ifst.ignore(100, ',');
+            }
+            m_error = ERROR_POS_PRICE;
+        }
+        else
+        {
+            if(tempPrice > 0)
+            {
+                m_price = tempPrice;
+            }
+        }
         
+        // Tax
+        ifst.ignore(1, ',');
+        ifst >> tempTaxed;
+        if(!ifst)
+        {
+            if(!ifst)
+            {
+                ifst.clear();
+                ifst.ignore(100, ',');
+            }
+            m_error = ERROR_POS_TAX;
+        }
+        else
+        {
+            if(tempTaxed == 1)
+            {
+                m_taxed = true;
+            }
+            else
+            {
+                m_taxed = false;
+            }
+        }
+        
+        // Quantity
+        ifst.ignore(1, ',');
+        ifst >> tempQuantity;
+        if(!ifst)
+        {
+            if(!ifst)
+            {
+                ifst.clear();
+                ifst.ignore(100, ',');
+            }
+            m_error = ERROR_POS_QTY;
+        }
+        else
+        {
+            if(tempQuantity < MAX_STOCK_NUMBER+1)
+            {
+                m_quantity = tempQuantity;
+            }
+        }
+        //valid();
       return ifst;
     }
     
     ostream& Item::bprint(ostream& ostr) const
     {
+        size_t numOfstr = strlen(m_name);
+        char name[41]={0};
+        if(numOfstr > 20)
+        {
+            numOfstr = 20;
+        }
+        strncpy(name, m_name, numOfstr);
+        name[numOfstr] = 0;
+        
+        ostr << "|";
+        ostr.width(20); ostr.fill(' '); ostr.setf(ios::left);
+        ostr << name; ostr.unsetf(ios::left); ostr << "|";
+        
+        ostr.width(7); ostr.fill(' '); ostr.setf(ios::right);
+        ostr.setf(ios::fixed); ostr.precision(2);
+        ostr << cost(); ostr.unsetf(ios::right); ostr << "|";
+        if(m_taxed == true)
+        {
+            ostr << "  " << "T" << "  " << "|";
+        }
+        else
+        {
+            ostr << "  " << " " << "  " << "|";
+        }
+        ostr << endl;
       return ostr;
     }
     

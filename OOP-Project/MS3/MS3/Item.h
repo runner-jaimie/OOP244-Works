@@ -52,11 +52,11 @@ namespace sdds
     //Member function
         void valid();
         void setEmpty();
-        char itemType();
-        Item& displayType(int displayType);
-        double cost() const;
-        int quantity() const;
-        Item& clear();
+        virtual char itemType() const = 0; // vitrual funciton 만들때 0 
+        virtual Item& displayType(int displayType);
+        virtual double cost() const;
+        virtual int quantity() const;
+        virtual Item& clear();
         
     //Pure virtual function
         std::ostream& write(std::ostream& ostr = std::cout) const;
