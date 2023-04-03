@@ -50,7 +50,7 @@ namespace sdds
         operator bool() const;
     
     //Member function
-        void valid(char* sku, char* name, double price, bool taxed, int quantity);
+        bool valid(char* sku, char* name, double price, bool taxed, int quantity);
         void setEmpty();
         virtual char itemType() const = 0; // vitrual funciton 만들때 0 
         virtual Item& displayType(int displayType);

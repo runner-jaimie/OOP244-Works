@@ -106,7 +106,7 @@ namespace sdds
     }
 
     //Member function
-    void Item::valid(char* sku, char* name, double price, bool taxed, int quantity)
+    bool Item::valid(char* sku, char* name, double price, bool taxed, int quantity)
     {
         bool ok = true;
         
@@ -136,6 +136,7 @@ namespace sdds
             ok = false;
             m_error = ERROR_POS_QTY;
         }
+        return ok;
     }
     
     void Item::setEmpty()
