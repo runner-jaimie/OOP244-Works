@@ -382,16 +382,15 @@ namespace sdds
        {
            ok = true;
            cout << "> ";
-           istr.ignore(1000, '\n');
+           //istr.ignore();
            istr >> m_quantity;
-           if(!istr || m_quantity >= MAX_STOCK_NUMBER + 1 || m_quantity == 0)
+           if(!istr || m_quantity >= MAX_STOCK_NUMBER + 1 || m_quantity < 1)
            {
                if(!istr)
                {
                    istr.clear();
-                   istr.ignore(1000, '\n');
                }
-               //istr.ignore(1000, '\n');
+               istr.ignore(1000, '\n');
                ok = false;
                cout << ERROR_POS_QTY << endl;
            }
