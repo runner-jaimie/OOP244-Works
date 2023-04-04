@@ -389,9 +389,9 @@ namespace sdds
                if(!istr)
                {
                    istr.clear();
-                   //istr.ignore(1000, '\n');
+                   istr.ignore(1000, '\n');
                }
-               istr.ignore(1000, '\n');
+               //istr.ignore(1000, '\n');
                ok = false;
                cout << ERROR_POS_QTY << endl;
            }
