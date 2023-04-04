@@ -39,8 +39,8 @@ namespace sdds
         if(this !=&source) //Prevnet self copy 여기서 this에 무엇이 있나??
         {
             delete [] m_name;
-            m_name = nullptr;
-            setEmpty();
+            //m_name = nullptr;
+            setEmpty();            
             if(source.m_name)
             {
                 strcpy(m_sku, source.m_sku);
@@ -50,7 +50,6 @@ namespace sdds
                 m_taxed = source.m_taxed;
                 m_quantity = source.m_quantity;
             }
-            
         }
         return *this;
     }
@@ -61,13 +60,6 @@ namespace sdds
         return !strcmp(m_sku, sku); // 값이 비교해서 같으면 true 리턴
     }
     
-//    ▶ 간단예시(strcmp)
-//    char str1[] = “BlockDMask”;
-//    char str2[] = “BlockDMask”;
-//    strcmp(str1, str2);        // 문자열이 같으므로 0
-//    strcmp(str1, BlockFMask”); // D < F 이므로 음수 반환
-//    strcmp(str1, BlockAMask”); // D > A 이므로 양수 반환
-
     bool Item::operator>(const Item& right) const
     {
         return strcmp(m_name, right.m_name) > 0; // 알파벳 순서를 비교 a가 아스키 코드에서 가장 작은 수 그래서 앞에 value가 뒤에 value 보다 작으면 양수 값 리턴
@@ -77,7 +69,7 @@ namespace sdds
     {
         int sum;
         sum = m_quantity += value;
-        //sum = m_quantity;
+        
         if(sum > MAX_STOCK_NUMBER)
         {
             m_quantity = MAX_STOCK_NUMBER;
@@ -90,7 +82,7 @@ namespace sdds
     {
         int sum;
         sum = m_quantity -= value;
-        //sum = m_quantity;
+
         if( sum < value)
         {
             m_quantity = 0;
@@ -186,7 +178,7 @@ namespace sdds
         
         if(!m_error && m_name && m_diaplay == POS_LIST)
         {
-            int numOfstr =0;
+            int numOfstr = 0;
             char name[41]={0};
             numOfstr = strlen(m_name);
             
