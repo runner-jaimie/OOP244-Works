@@ -384,7 +384,7 @@ namespace sdds
            cout << "> ";
            istr.ignore(1000, '\n');
            istr >> m_quantity;
-           if(!istr || m_quantity > MAX_STOCK_NUMBER || m_quantity <= 0)
+           if(!istr || m_quantity >= MAX_STOCK_NUMBER + 1 || m_quantity == 0)
            {
                if(!istr)
                {
