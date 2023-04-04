@@ -23,22 +23,23 @@ that my professor provided to complete my project milestones.
 
 namespace sdds
 {
-    class Item : public PosIO
+    class Item : public PosIO //public을 상속받는다
     {
-        char m_sku[MAX_SKU_LEN + 1];
-        char* m_name;
-        double m_price;
-        bool m_taxed;
-        int m_quantity;
+        char m_sku[MAX_SKU_LEN + 1]{};
+        char* m_name{};
+        double m_price{};
+        bool m_taxed{};
+        int m_quantity{};
         
     protected:
-        int m_diaplay;
-        Error m_error; // class 가져오는 방법
+        int m_diaplay{};
+        Error m_error{}; // class 가져오는 방법 이것은 상속 관계가 아니다.
         
     public:
         Item();
         Item(const Item& source);
         Item& operator=(const Item& source);
+        ~Item();
         
     //Member operator overloads
         bool operator==(const char* sku) const;
@@ -52,7 +53,7 @@ namespace sdds
     //Member function
         bool valid(char* sku, char* name, double price, bool taxed, int quantity);
         void setEmpty();
-        virtual char itemType() const = 0; // vitrual funciton 만들때 0 
+        virtual char itemType() const = 0; // vitrual funciton 만들때 0 자식들이 꼭 개발해야한다 pure virtual 이라서
         virtual Item& displayType(int displayType);
         virtual double cost() const;
         virtual int quantity() const;

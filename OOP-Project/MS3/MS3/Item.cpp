@@ -26,25 +26,28 @@ namespace sdds
 {
     Item::Item()
     {
+        m_name = nullptr;
         setEmpty();
     }
     
     Item::Item(const Item& source)
     {
+        m_name = nullptr;
+        setEmpty();
         operator=(source); // 정확히 하는 기능에 대해서 질문 ??
     }
     
     Item& Item::operator=(const Item& source) // 여기서 모든값을 = operator를 통해서 assign 해줘야 한다.
     {
-        if(this !=&source) //Prevnet self copy 여기서 this 내 current class
+        if(this != &source) //Prevnet self copy 여기서 this는 my current class
         {
             delete [] m_name; // current obj와 source의 주소가 달라서 내가 이제 새로운 값을 받기 위해 current obj 초기화 해준다
-            //m_name = nullptr;
-            setEmpty();            
-            if(strlen(source.m_sku)>0)
+            m_name = nullptr;
+            setEmpty();
+            if(strlen(source.m_sku) > 0 && source.m_name != nullptr)
             {
                 strcpy(m_sku, source.m_sku);
-                m_name = new char[strlen(source.m_name + 1)];
+                m_name = new char[strlen(source.m_name) + 1];
                 strcpy(m_name, source.m_name);
                 m_price = source.m_price;
                 m_taxed = source.m_taxed;
@@ -52,6 +55,12 @@ namespace sdds
             }
         }
         return *this;
+    }
+    
+    Item::~Item()
+    {
+        delete [] m_name;
+        m_name = nullptr;
     }
     
     //Member operator overloads
@@ -133,7 +142,11 @@ namespace sdds
     
     void Item::setEmpty()
     {
-        m_sku[0] = 0;
+        m_sku[0] = '\0';
+        if(m_name)
+        {
+            delete[] m_name;
+        }
         m_name = nullptr;
         m_price = 0.0;
         m_taxed = false;
@@ -178,7 +191,7 @@ namespace sdds
         
         if(!m_error && m_name && m_diaplay == POS_LIST)
         {
-            int numOfstr = 0;
+            size_t numOfstr = 0;
             char name[41]={0};
             numOfstr = strlen(m_name);
             
@@ -221,7 +234,7 @@ namespace sdds
         
         else if(m_name && m_diaplay == POS_FORM)
         {
-            ostr.width(13); ostr.fill('='); ostr << "v" << endl;
+            ostr.width(14); ostr.fill('='); ostr << "v" << endl;
             ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
             ostr << "Name:" << m_name; ostr.unsetf(ios::left); ostr << endl;
             ostr.width(13); ostr.fill(' '); ostr.setf(ios::left);
@@ -415,12 +428,12 @@ namespace sdds
        
         //Load Sku
         tempSku[0] = '\0'; // array 초기화
-        ifst.getline(tempSku, MAX_SKU_LEN + 1, ',');
+        ifst.getline(tempSku, 100, ',');
         if(!ifst) //  파일을 리딩할때 ifstream 값이 오류 인지 확인하기
         {
             ifst.clear(); // 보통 clear() ignore() 앞에 붙는다. 그리고 오류값 들어오면 clear
             ifst.ignore(1000, ','); // ignore 줄때 getline 이랑 같은 delemination 줘야한다. 그래서 여기는 , 로
-            m_error = ERROR_POS_SKU;
+            //m_error = ERROR_POS_SKU;
             ok = false;
         }
         
@@ -428,12 +441,12 @@ namespace sdds
         if(ok)
         {
             tempName[0] = '\0';
-            ifst.getline(tempName, MAX_NAME_LEN + 1, ',');
+            ifst.getline(tempName, 100, ',');
             if(!ifst)
             {
                 ifst.clear();
                 ifst.ignore(1000,',');
-                m_error = ERROR_POS_NAME;
+                //m_error = ERROR_POS_NAME;
                 ok = false;
             }
         }
@@ -446,7 +459,7 @@ namespace sdds
             {
                 ifst.clear();
                 ifst.ignore(100, ',');
-                m_error = ERROR_POS_PRICE;
+                //m_error = ERROR_POS_PRICE;
                 ok = false;
             }
         }
@@ -460,7 +473,7 @@ namespace sdds
             {
                 ifst.clear();
                 ifst.ignore(100, ',');
-                m_error = ERROR_POS_TAX;
+                //m_error = ERROR_POS_TAX;
                 ok = false;
             }
            
@@ -475,34 +488,36 @@ namespace sdds
             {
                 ifst.clear();
                 ifst.ignore(100, ',');
-                m_error = ERROR_POS_QTY;
+                //m_error = ERROR_POS_QTY;
                 ok = false;
             }
         }
-        
-        valid(tempSku, tempName, tempPrice, tempTaxed, tempQuantity);
-        
-        if(*this)
+        if(ok)
         {
-            strcpy(m_sku, tempSku);
-            if(m_name)
+            valid(tempSku, tempName, tempPrice, tempTaxed, tempQuantity);
+            
+            if(*this)
             {
-                delete[] m_name;
-                m_name = nullptr;
+                strcpy(m_sku, tempSku);
+                if(m_name)
+                {
+                    delete[] m_name;
+                    m_name = nullptr;
+                }
+                m_name = new char[strlen(tempName) + 1];
+                strcpy(m_name, tempName);
+                m_price = tempPrice;
+                m_taxed = tempTaxed;
+                m_quantity = tempQuantity;
             }
-            m_name = new char[strlen(tempName) + 1];
-            strcpy(m_name, tempName);
-            m_price = tempPrice;
-            m_taxed = tempTaxed;
-            m_quantity = tempQuantity;
         }
-        
       return ifst;
     }
     
     ostream& Item::bprint(ostream& ostr) const
     {
-        size_t numOfstr = strlen(m_name);
+        size_t numOfstr;
+        numOfstr = strlen(m_name);
         char name[41]={0};
         if(numOfstr > 20)
         {
@@ -511,13 +526,13 @@ namespace sdds
         strncpy(name, m_name, numOfstr);
         name[numOfstr] = 0;
         
-        ostr << "|";
+        ostr << "| ";
         ostr.width(20); ostr.fill(' '); ostr.setf(ios::left);
         ostr << name; ostr.unsetf(ios::left); ostr << "|";
         
-        ostr.width(7); ostr.fill(' '); ostr.setf(ios::right);
+        ostr.width(10); ostr.fill(' '); ostr.setf(ios::right);
         ostr.setf(ios::fixed); ostr.precision(2);
-        ostr << cost(); ostr.unsetf(ios::right); ostr << "|";
+        ostr << cost(); ostr.unsetf(ios::right); ostr << " |";
         if(m_taxed == true)
         {
             ostr << "  " << "T" << "  " << "|";
