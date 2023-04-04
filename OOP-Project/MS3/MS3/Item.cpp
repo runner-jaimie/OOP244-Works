@@ -36,12 +36,12 @@ namespace sdds
     
     Item& Item::operator=(const Item& source) // 여기서 모든값을 = operator를 통해서 assign 해줘야 한다.
     {
-        if(this !=&source) //Prevnet self copy 여기서 this에 무엇이 있나??
+        if(this !=&source) //Prevnet self copy 여기서 this 내 current class
         {
-            delete [] m_name;
+            delete [] m_name; // current obj와 source의 주소가 달라서 내가 이제 새로운 값을 받기 위해 current obj 초기화 해준다
             //m_name = nullptr;
             setEmpty();            
-            if(source.m_name)
+            if(strlen(source.m_sku)>0)
             {
                 strcpy(m_sku, source.m_sku);
                 m_name = new char[strlen(source.m_name + 1)];
